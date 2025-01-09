@@ -3,9 +3,10 @@ package main
 import (
 	"Golang/database"
 	"Golang/routes"
-	"github.com/rs/cors"
 	"log"
 	"net/http"
+
+	"github.com/rs/cors"
 )
 
 func main() {

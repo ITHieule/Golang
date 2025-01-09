@@ -2,12 +2,7 @@
   <div class="container">
     <h1>Todo List</h1>
     <div class="input-container">
-      <input
-        v-model="newTodo"
-        type="text"
-        placeholder="Enter a new task"
-        id="todo-input"
-      />
+      <input v-model="newTodo" type="text" placeholder="Enter a new task" id="todo-input" />
       <button @click="createTodo" id="add-btn">Add Todo</button>
     </div>
 
@@ -15,11 +10,7 @@
     <div v-if="showEditForm" id="edit-form">
       <input v-model="editForm.title" type="text" />
       <label for="completed-checkbox">Completed</label>
-      <input
-        v-model="editForm.completed"
-        type="checkbox"
-        id="completed-checkbox"
-      />
+      <input v-model="editForm.completed" type="checkbox" id="completed-checkbox" />
       <button @click="saveEdit">Save</button>
       <button @click="cancelEdit">Cancel</button>
     </div>
@@ -42,9 +33,7 @@
               Toggle
             </button>
             <button @click="deleteTodo(todo.id)">Delete</button>
-            <button
-              @click="openEditForm(todo.id, todo.title, todo.completed)"
-            >
+            <button @click="openEditForm(todo.id, todo.title, todo.completed)">
               Edit
             </button>
           </td>
@@ -87,7 +76,7 @@ export default {
       fetch(this.apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newTodo),
+        body: JSON.stringify(newTodo)
       })
         .then((response) => response.json())
         .then(() => {
@@ -141,8 +130,17 @@ export default {
         .catch((error) => console.error("Error deleting todo:", error));
     },
   },
+  created() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (!isLoggedIn) {
+      this.$router.push('/login'); // Redirect to login if not logged in
+    } else {
+      this.fetchTodos(); // Fetch todo list after login
+    }
+  },
   mounted() {
-    this.fetchTodos(); // Fetch todos when component mounts
+    // Fetch todos when component mounts
+    this.fetchTodos();
   },
 };
 </script>
