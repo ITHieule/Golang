@@ -1,7 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"DAGOLAND/database"
+	"DAGOLAND/router"
+	"log"
+	"net/http"
 )
 
 //TIP <p>To run your code, right-click the code and select <b>Run</b>.</p> <p>Alternatively, click
@@ -97,25 +100,50 @@ func main() {
 	//}
 	//fmt.Println(sum)
 
-	var num int
-	fmt.Println("Nhập số nguyên:")
-	fmt.Scan(&num)
+	//	var num int
+	//	fmt.Println("Nhập số nguyên:")
+	//	fmt.Scan(&num)
+	//
+	//	if isParime(num) {
+	//		fmt.Println(num, "là số nguyên tô")
+	//	} else {
+	//		fmt.Println(num, "Không phải là số nguyên tố")
+	//	}
+	//}
 
-	if isParime(num) {
-		fmt.Println(num, "là số nguyên tô")
-	} else {
-		fmt.Println(num, "Không phải là số nguyên tố")
-	}
-}
-func isParime(n int) bool {
-	if n < 2 {
-		return false
-	}
-	for i := 2; i*i <= n; i++ {
-		if n%i == 0 {
-			return false
-		}
-	}
-	return true
+	//	var n int
+	//	fmt.Println("Nhâp số Nguyên ")
+	//	fmt.Scan(&n)
+	//	if n < 1 {
+	//		fmt.Println("không phải Số nguyên tố")
+	//		return
+	//	}
+	//	fmt.Println("các số nguyên tố nhỏ hơn ", n)
+	//
+	//	for i := 1; i <= n; i++ {
+	//		if isParime(i) {
+	//			fmt.Println(i, "")
+	//		}
+	//
+	//	}
+	//
+	//}
+	//func isParime(n int) bool {
+	//	if n < 2 {
+	//		return false
+	//	}
+	//	for i := 2; i*i <= n; i++ {
+	//		if n%i == 0 {
+	//			return false
+	//		}
+	//	}
+	//	return true
+
+	// Kết nối cơ sở dữ liệu
+	database.ConnecDB()
+	r := router.SetupRoutes()
+
+	log.Println("Server running on port 8084")
+	log.Fatal(http.ListenAndServe(":8084", r))
 
 }
